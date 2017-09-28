@@ -19,7 +19,15 @@ namespace WorldDbQuerier
                         Console.WriteLine("Onbekend argument");
                         break;
                 }
+            else
 
+            Database();
+            
+
+        }
+
+        public static void Database()
+        {
             MySqlConnection comm = new MySqlConnection();
             MySqlCommand cmd = new MySqlCommand();
             comm.ConnectionString = "Server = 192.168.56.101;Port = 3306; Database = world;Uid = root;Pwd = imma; ";
@@ -27,7 +35,7 @@ namespace WorldDbQuerier
             comm.Open();
             cmd.CommandText = "SELECT count(*) FROM Country";
             Console.WriteLine("Aantal landen {0}", cmd.ExecuteScalar());
-
         }
+
     }
 }
