@@ -1,5 +1,5 @@
 ﻿using System;
-
+using MySql.Data.MySqlClient;
 namespace WorldDbQuerier
 {
     class Program
@@ -13,14 +13,26 @@ namespace WorldDbQuerier
                 switch (args[0])
                 {
                     case "-v":
-                        Console.WriteLine(args[0] + version);
+                        Console.WriteLine("v" + version);
                         break;
                     default:
                         Console.WriteLine("Onbekend argument");
                         break;
                 }
-                    
-                
+            MySqlConnection comm = new MySqlConnection();
+
+
+            comm.ConnectionString = "Server = 192.168.56.101;Port = 3306; Database = Concertzalen1;Uid = root;Pwd = imma; ";
+
+            MySqlCommand cmd = new MySqlCommand();
+            cmd.Connection = comm;
+            cmd.CommandText = "SELECT count(*) FROM tblConcertzalen";
+
+            comm.Open();
+
+
+            Console.WriteLine("Aantal concertzalen {0}", cmd.ExecuteScalar());
+
         }
     }
 }
