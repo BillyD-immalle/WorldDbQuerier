@@ -5,7 +5,7 @@ namespace WorldDbQuerier
     class Program
     {
 
-        static string version = "0.2";
+        static string version = "0.3";
 
         static void Main(string[] args)
         {
@@ -45,9 +45,14 @@ namespace WorldDbQuerier
             cmd.Connection = comm;
             comm.Open();
             cmd.CommandText = "SELECT * FROM Country";
-            cmd.ExecuteReader();
+            var r = cmd.ExecuteReader();
+
+            while(r.Read())
+            {
+                Console.WriteLine(r["Name"]);
             }
         }
+    }
 
 
 
