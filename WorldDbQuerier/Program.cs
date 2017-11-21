@@ -21,6 +21,9 @@ namespace WorldDbQuerier
                     case "lijst":
                         LijstLanden();
                         break;
+                    case "zoek":
+                        Zoeker(args[1]);
+                        break;
                     default:
                         Console.WriteLine("Onbekend argument");
                         break;
@@ -46,8 +49,26 @@ namespace WorldDbQuerier
             comm.Open();
             cmd.CommandText = "SELECT * FROM Country";
             var r = cmd.ExecuteReader();
-
             while(r.Read())
+            {
+                Console.WriteLine(r["Name"]);
+            }
+        }
+        public static void Zoeker(string land)
+        {
+            MySqlConnection comm = new MySqlConnection();
+            MySqlCommand cmd = new MySqlCommand();
+            comm.ConnectionString = "Server = 192.168.56.101;Port = 3306; Database = world;Uid = root;Pwd = imma; ";
+            cmd.Connection = comm;
+            comm.Open();
+            cmd.CommandText = "SELECT * FROM Country WHERE name LIKE '%" + land + "%'";
+
+
+
+
+
+            var r = cmd.ExecuteReader();
+            while (r.Read())
             {
                 Console.WriteLine(r["Name"]);
             }
